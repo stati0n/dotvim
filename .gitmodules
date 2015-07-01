@@ -1,6 +1,8 @@
 [submodule "bundle/fugitive"]
-	path = bundle/fugitive
-	url = https://github.com/tpope/vim-fugitive.git
+    path = bundle/fugitive
+    url = https://github.com/tpope/vim-fugitive.git
+    ignore = dirty
 [submodule "bundle/solarized"]
-	path = bundle/solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
+    path = bundle/solarized
+    url = https://github.com/altercation/vim-colors-solarized.git
+    ignore = dirty
