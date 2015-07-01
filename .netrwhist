@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/local/ANT/goodmank/Logs/2015.06.30_13.13.15/logs'
+let g:netrw_dirhist_2='/home/local/ANT/goodmank/Logs/2015.06.30_13.13.15/logs/happypath-ocr-email-accuracy'
+let g:netrw_dirhist_3='/home/local/ANT/goodmank'
+let g:netrw_dirhist_4='/home/local/ANT/goodmank/.vim'
