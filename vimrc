@@ -1,3 +1,7 @@
+"Enable Pathogen
+call pathogen#infect()
+call pathogen#helptags()
+
 "Syntax
 syntax enable
 
