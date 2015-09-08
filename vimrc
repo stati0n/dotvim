@@ -1,6 +1,16 @@
-"Enable Pathogen
-call pathogen#infect()
-call pathogen#helptags()
+" Enable Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Get Vundle Bundles
+Bundle 'tpope/vim-fugitive'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'chriskempson/base16-vim'
+
+" End Vundle
+filetype on
 
 "Leader
 let mapleader = "\<Space>"
