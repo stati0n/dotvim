@@ -1,15 +1,19 @@
 " Enable Vundle
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
+let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
+let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
+call vundle#begin(expand(vimDir . '/bundle'))
 
 " Get Vundle Bundles
-Bundle 'tpope/vim-fugitive'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'chriskempson/base16-vim'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'chriskempson/base16-vim'
 
 " End Vundle
+call vundle#end()
 filetype on
 
 "Leader
