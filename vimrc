@@ -2,6 +2,9 @@
 call pathogen#infect()
 call pathogen#helptags()
 
+"Leader
+let mapleader = "\<Space>"
+
 "Syntax
 syntax enable
 
@@ -93,6 +96,20 @@ map <leader>ew :e %%
 map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
+
+" Copy and paste to system clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" Enter visual mode
+nmap <Leader><Leader> V
+
+" Write fast
+nnoremap <Leader>w :w<CR>
 
 " Source the vimrc file after saving it
 if has("autocmd")
