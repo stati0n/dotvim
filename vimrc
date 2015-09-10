@@ -6,15 +6,18 @@ let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
 call vundle#begin(expand(vimDir . '/bundle'))
 
-" Get Vundle Bundles
+" Get Vundle Pluginss
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 
 " End Vundle
 call vundle#end()
-filetype on
+filetype plugin indent on
 
 "Leader
 let mapleader = "\<Space>"
@@ -46,9 +49,13 @@ set title
 
 "Display
 set background=dark
-set t_Co=256
-let g:solarized_termcolors=256
-colorscheme solarized
+if win_shell
+    colorscheme elflord
+else
+    set t_Co=256
+    let g:solarized_termcolors=256
+    colorscheme solarized
+endif
 set cursorline
 
 "Word wrap
@@ -124,6 +131,11 @@ nmap <Leader><Leader> V
 
 " Write fast
 nnoremap <Leader>w :w<CR>
+"
+" Splits
+map <leader>ex :Explore<CR>
+map <leader>vex :Vexplore<CR>
+map <leader>sex :Sexplore<CR>
 
 " Source the vimrc file after saving it
 if has("autocmd")
