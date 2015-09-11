@@ -6,8 +6,11 @@ Create symlinks:
 
     ln -s ~/.vim/vimrc ~/.vimrc
 
-Switch to the `~/.vim` directory, and fetch submodules:
+    or on Windows
 
+    mklink %USERPROFILE%/_vimrc %USERPROFILE%/vimfiles/vimrc
+
+Clone Vundle
     cd ~/.vim
-    git submodule init
-    git submodule update
+    git clone https://github.com/VundleVim/Vundle.vim.git bundle/Vundle.vim
+    vim +BundleInstall! +BundleClean +qall
