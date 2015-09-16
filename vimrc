@@ -1,4 +1,4 @@
-" Enable Vundle
+"Enable Vundle
 set nocompatible
 filetype off
 let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
@@ -6,16 +6,22 @@ let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
 call vundle#begin(expand(vimDir . '/bundle'))
 
-" Get Vundle Pluginss
+"Get Vundle Pluginss
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-repeat'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+
+"Get Vundle Color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
+Plugin 'lsdr/monokai'
 
-" End Vundle
+"End Vundle
 call vundle#end()
 filetype plugin indent on
 
@@ -60,6 +66,9 @@ set cursorline
 
 "Word wrap
 :set nowrap
+
+"Friendly Backspace
+:set backspace=indent,eol,start
 
 "Whitespace
 :set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
