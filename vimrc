@@ -2,6 +2,7 @@
 set nocompatible
 filetype off
 let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
+let win_gui = (has('gui_running') && (win_shell))
 let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
 let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
 call vundle#begin(expand(vimDir . '/bundle'))
@@ -15,11 +16,16 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-repeat'
 Plugin 'bling/vim-airline'
 Plugin 'kien/ctrlp.vim'
+Plugin 'xolox/vim-easytags'
+Plugin 'xolox/vim-misc'
+Plugin 'majutsushi/tagbar'
 
 "Get Vundle Color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'lsdr/monokai'
+Plugin 'morhetz/gruvbox'
+Plugin 'romainl/Apprentice'
 
 "End Vundle
 call vundle#end()
@@ -55,7 +61,13 @@ set title
 
 "Display
 set background=dark
-if win_shell
+if win_gui
+    colorscheme gruvbox
+    set guioptions-=m  "remove menu bar
+    set guioptions-=T  "remove toolbar
+    set guioptions-=r  "remove right-hand scroll bar
+    set guioptions-=L  "remove left-hand scroll bar
+elseif win_shell
     colorscheme elflord
 else
     set t_Co=256
@@ -146,7 +158,22 @@ map <leader>ex :Explore<CR>
 map <leader>vex :Vexplore<CR>
 map <leader>sex :Sexplore<CR>
 
+"Tagbar
+nnoremap <silent> <leader>tt :TagbarToggle<CR>
+
+"Copy full path to system clipboard
+nnoremap <leader>cp :let @+ = expand("%:p")
+
+map <Leader>cd :cd %:p:h<CR>
+map <Leader>lcd :lcd %:p:h<CR>
+
+"DiffOrig via http://vimdoc.sourceforge.net/htmldoc/diff.html#:DiffOrig
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+          \ | wincmd p | diffthis
+endif
+
 " Source the vimrc file after saving it
 if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
+  autocmd bufwritepost $MYVIMRC source $MYVIMRC
 endif
