@@ -173,6 +173,23 @@ if !exists(":DiffOrig")
           \ | wincmd p | diffthis
 endif
 
+" Try to replace ctrlP
+" Find from project root
+set path=.,**
+nnoremap <leader>f :find *
+nnoremap <leader>s :sfind *
+nnoremap <leader>v :vert sfind *
+nnoremap <leader>t :tabfind *
+
+" Find from directory of current file
+nnoremap <leader>F :find <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>S :sfind <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>V :vert sfind <C-R>=expand('%:h').'/*'<CR>
+nnoremap <leader>T :tabfind <C-R>=expand('%:h').'/*'<CR>
+
+" Easily switch between buffers
+nnoremap gb :ls<CR>:b<Space>
+
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost $MYVIMRC source $MYVIMRC
