@@ -1,38 +1,63 @@
-"Enable Vundle
+"Enable modern Vim features.
 set nocompatible
-filetype off
-let win_shell = (has('win32') || has('win64')) && &shellcmdflag =~ '/'
-let win_gui = (has('gui_running') && (win_shell))
-let vimDir = win_shell ? '$HOME/vimfiles' : '$HOME/.vim'
-let &runtimepath .= ',' . expand(vimDir . '/bundle/Vundle.vim')
-call vundle#begin(expand(vimDir . '/bundle'))
 
-"Get Vundle Pluginss
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-repeat'
-Plugin 'bling/vim-airline'
-Plugin 'kien/ctrlp.vim'
-Plugin 'xolox/vim-easytags'
+"Leader
+let mapleader = "\<Space>"
+let g:mapleader = g:mapleader
+
+" Temporary File locations
+set undofile
+set undodir=~/.vim/.undo//
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.swp//
+
+
+"Vunle configuration
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Get Vundle Plugins
+Plugin 'gmarik/vundle'
+
+" Sessions
 Plugin 'xolox/vim-misc'
-Plugin 'majutsushi/tagbar'
+Plugin 'xolox/vim-session'
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
+let g:session_autosave_periodic = 1
 
-"Get Vundle Color schemes
+Plugin 'tpope/vim-commentary'
+
+Plugin 'tpope/vim-surround'
+" Markdown bold
+let b:surround_{char2nr('b')} = "**\r**"
+
+Plugin 'tpope/vim-repeat'
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'tpope/vim-unimpaired'
+
+" Signify
+Plugin 'mhinz/vim-signify'
+let g:signify_sign_change='~'
+
+Plugin 'bling/vim-airline'
+
+Plugin 'kien/ctrlp.vim'
+
+"Get Color schemes
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'lsdr/monokai'
 Plugin 'morhetz/gruvbox'
 Plugin 'romainl/Apprentice'
+Plugin 'yassinebridi/vim-purpura'
 
 "End Vundle
 call vundle#end()
 filetype plugin indent on
 
-"Leader
-let mapleader = "\<Space>"
 
 "Syntax
 syntax enable
@@ -42,6 +67,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
+set smarttab
 
 "Searches
 set incsearch
@@ -55,36 +81,29 @@ set number
 "Indent
 set autoindent
 set smartindent
+set smarttab
 
 "Title
 set title
 
 "Display
 set background=dark
-if win_gui
-    colorscheme gruvbox
-    set guioptions-=m  "remove menu bar
-    set guioptions-=T  "remove toolbar
-    set guioptions-=r  "remove right-hand scroll bar
-    set guioptions-=L  "remove left-hand scroll bar
-elseif win_shell
-    colorscheme elflord
-else
-    set t_Co=256
-    let g:solarized_termcolors=256
-    colorscheme solarized
-endif
+set t_Co=256
 set cursorline
+set scrolloff=3
+set laststatus=2
+set display+=lastline
 
 "Word wrap
+"set textwidth=79
 :set nowrap
 
 "Friendly Backspace
-:set backspace=indent,eol,start
+:set backspace=2
 
 "Whitespace
 :set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
-:set list
+noremap <leader>h :set list!<CR>
 
 "Paste toggle
 :set pastetoggle=<F2>
@@ -102,11 +121,11 @@ nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
-"Highlight greater than 100 columns"
+"Highlight greater than 80 columns"
 if exists('+colorcolumn')
-    set colorcolumn=100
+    set colorcolumn=80
 else
-    :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+    :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
 
 "Set Status Line"
@@ -139,30 +158,11 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
-" Copy and paste to system clipboard
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
-
-" Enter visual mode
-nmap <Leader><Leader> V
-
-" Write fast
-nnoremap <Leader>w :w<CR>
-"
 " Splits
-map <leader>ex :Explore<CR>
-map <leader>vex :Vexplore<CR>
-map <leader>sex :Sexplore<CR>
-
-"Tagbar
-nnoremap <silent> <leader>tt :TagbarToggle<CR>
-
-"Copy full path to system clipboard
-nnoremap <leader>cp :let @+ = expand("%:p")
+nnoremap <Leader><Bar> <C-w>v
+nnoremap <Leader>\ <C-w>v
+nnoremap <Leader>- <C-w>s
+nnoremap <Leader>_ <C-w>s
 
 map <Leader>cd :cd %:p:h<CR>
 map <Leader>lcd :lcd %:p:h<CR>
@@ -190,7 +190,19 @@ nnoremap <leader>T :tabfind <C-R>=expand('%:h').'/*'<CR>
 " Easily switch between buffers
 nnoremap gb :ls<CR>:b<Space>
 
+" Disable highlight
+map <silent> <leader><cr> :noh<cr>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Insert line
+nnoremap K a<CR><Esc>
+
 " Source the vimrc file after saving it
 if has("autocmd")
-  autocmd bufwritepost $MYVIMRC source $MYVIMRC
+  autocmd bufwritepost .vimrc source $MYVIMRC
 endif
